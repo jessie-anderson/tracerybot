@@ -37,32 +37,26 @@ var apiOptions =
 }
 
 var processedGrammar = tracery.createGrammar(apiOptions);
-
 processedGrammar.addModifiers(tracery.baseEngModifiers);
 
-var endpoint = processedGrammar.flatten("#origin#");
-endpoint = apiRoot + endpoint
-
 function makeTweet() {
+	var endpoint = processedGrammar.flatten("#origin#");
+	endpoint = apiRoot + endpoint
+	console.log(endpoint)
 	client.get(endpoint, (data, res) => {
-		if (!data) {
+		if (data[0] === undefined) {
 			makeTweet()
 		} else {
 			var tweet = 'author: ' + data[0].author + '\n' + 'title: ' + data[0].title + '\n' + 'first line: ' + data[0].lines[0] + '...'
-			var T = new Twit(
-			{
+			var T = new Twit({
 			    consumer_key:         process.env.TWITTER_CONSUMER_KEY
 			  , consumer_secret:      process.env.TWITTER_CONSUMER_SECRET
 			  , access_token:         process.env.TWITTER_ACCESS_TOKEN
 			  , access_token_secret:  process.env.TWITTER_ACCESS_TOKEN_SECRET
-			}
-			)
-
+			})
 
 			T.post('statuses/update', { status: tweet }, function(err, data, response) {
-			  // console.log(data)
-				// console.log(err)
-				// console.log(response)
+			  console.log('success!')
 			})
 		}
 	})
