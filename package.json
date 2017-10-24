@@ -8,9 +8,9 @@
   },
   "author": "v21",
   "license": "ISC",
-  "dependencies":
-  {
-  	"twit" : "1.x",
-  	 "tracery-grammar": "2.x"
+  "dependencies": {
+    "blitz-js-query": "^0.2.17",
+    "tracery-grammar": "2.x",
+    "twit": "1.x"
   }
 }
